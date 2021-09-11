@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/questions.dart';
+import './answer.dart';
 
 void main() {
   runApp(SidApp());
@@ -21,7 +22,7 @@ class _SidAppState extends State<SidApp>{
 
 
 
-  changeQ(){
+  void changeQ(){
     setState((){_index = _index+1; });
     print("I am Q" + _index.toString());
   }
@@ -34,17 +35,11 @@ class _SidAppState extends State<SidApp>{
         body: Column(
             children: [
             Question(_quesList[_index], ),
-            ElevatedButton(
-              onPressed: () {
-                print("I am op1");
-                    changeQ();
-              },
-              child: Text("Opt 1"),),
-            ElevatedButton(onPressed: () {
-              print("I am op2");
-              changeQ();
-            },
-              child: Text("Opt 2"),)
+            Answer(changeQ),
+            Answer(changeQ),
+            Answer(changeQ),
+
+
             ]),
       ),
 
