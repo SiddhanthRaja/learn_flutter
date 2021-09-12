@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/questions.dart';
+import 'package:learn_flutter/cards.dart';
+import 'package:learn_flutter/result.dart';
 import './answer.dart';
 
 void main() {
@@ -18,11 +20,13 @@ class SidApp extends StatefulWidget {
 class _SidAppState extends State<SidApp>{
   var _quesList = [
     {"quesText": "Q100", "options" : [
-        {"opt":"A", "score":20},{"opt":"B", "score":10},{"opt":"C", "score":5},{"opt":"D", "score":2}]  },
+        {"opt":"A", "score":20},{"opt":"B", "score":10},{"opt":"C", "score":5}]  },
     {"quesText": "Q101", "options" : [
-      {"opt":"X", "score":20},{"opt":"Y", "score":10},{"opt":"Z", "score":5},{"opt":"W", "score":2}]  },
+      {"opt":"X", "score":20},{"opt":"Y", "score":10},{"opt":"Z", "score":5}]  },
     {"quesText": "Q102", "options" : [
-      {"opt":"1", "score":20},{"opt":"2", "score":10},{"opt":"3", "score":5},{"opt":"4", "score":2}]  },
+      {"opt":"1", "score":20},{"opt":"2", "score":10},{"opt":"3", "score":5}]  },
+    {"quesText": "Q103", "options" : [
+      {"opt":"1", "score":20},{"opt":"2", "score":10},{"opt":"3", "score":5}]  },
   ];
 
   var _index = 0;
@@ -39,22 +43,14 @@ class _SidAppState extends State<SidApp>{
 
   Widget build(BuildContext context) {
     // TODO: implement build
-    final List<Map> listOp = _quesList[_index]["options"] as List<Map>;
+    final List<Map> listOp = _quesList[_index]["options"] as List<Map<String,Object>>;
+
+
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text("Sid's App",style: TextStyle(color: Colors.deepOrange, backgroundColor: Colors.greenAccent) ),),
-        body: _index<= (_quesList.length -2) ? Column(
-          children: [
-
-            Question(_quesList[_index]["quesText"] as String ),
-
-            Answer(listOp[0]["opt"],() => changeQ(listOp[0]["score"]) ,),
-            Answer(listOp[1]["opt"],() => changeQ(listOp[1]["score"]) ,),
-            Answer(listOp[2]["opt"],() => changeQ(listOp[2]["score"]) ,),
-            Answer(listOp[3]["opt"],() => {_total += (listOp[3]["score"]) as int }),
-
-
-            ]) : Center(child: Text("You have completed the Quiz\n\n" + "Your score is $_total"),)
+        appBar: AppBar(title: Text("Sid's App",textAlign: TextAlign.center,style: TextStyle(color: Colors.deepOrange, backgroundColor: Colors.white, fontSize: 25.0,fontWeight: FontWeight.bold,) ),),
+        body: _index<= (_quesList.length -2) ? Cards(changeQ,listOp)
+            : Result(_total)
 
       ),
 
