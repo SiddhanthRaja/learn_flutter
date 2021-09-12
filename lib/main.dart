@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/cards.dart';
 import 'package:learn_flutter/result.dart';
-import './answer.dart';
+
 
 void main() {
   runApp(SidApp());
@@ -65,8 +65,7 @@ class _SidAppState extends State<SidApp> {
 
   Widget build(BuildContext context) {
     // TODO: implement build
-    final List<Map> listOp =
-        _quesList[_index]["options"] as List<Map<String, Object>>;
+
 
     return MaterialApp(
       home: Scaffold(
@@ -80,8 +79,8 @@ class _SidAppState extends State<SidApp> {
                   fontWeight: FontWeight.bold,
                 )),
           ),
-          body: _index <= (_quesList.length - 2)
-              ? Cards(changeQ, listOp)
+          body: _index <= (_quesList.length - 1)
+              ? Cards(changeQ, _quesList[_index]["options"] as List<Map<String, Object>>)
               : Result(_total)),
     );
   }

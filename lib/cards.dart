@@ -9,13 +9,21 @@ class Cards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      ...listOp.map((choice) {
-        return Answer(
-          choice["opt"],
-          () => changeQ(choice["score"]),
-        );
-      }).toList(),
-    ]);
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children:
+//     ...listOp.map((choice) {
+//       return Answer(
+//         choice["opt"],
+//             () => changeQ(choice["score"]),
+//       );
+//     }).toList(),
+        for (var i in listOp.length)
+    {
+      return Answer(listOp[i]["opt"], () => listOp[i](choice["score"]),
+      );
+    }
+
+    );
   }
 }
+
