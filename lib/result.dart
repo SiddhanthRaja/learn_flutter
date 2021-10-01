@@ -9,7 +9,7 @@ class Result extends StatelessWidget {
   String get comment {
     var comm = "Yay, you won the game!";
 
-    if (total <= 20) {
+    if (total <= 0) {
       comm = "You lost, better luck next time!";
     }
 

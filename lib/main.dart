@@ -40,39 +40,22 @@ class _SidAppState extends State<SidApp> {
 
   }
 
-  static final roundCards = getRandomCards(DECK, 9);
+  static roundMaker(int numRounds){
+    var quesList = [];
+    for(int i=0; i<numRounds; i++){
+      var roundCards = getRandomCards(DECK, 9);
+      quesList.add(    {
+        "quesText": "Round $i",
+        "tableCards": roundCards.sublist(0,4),
+        "options": [roundCards.sublist(5,6),roundCards.sublist(7,8)],
+      },);
 
-  var _quesList = [
-    {
-      "quesText": "Round 1",
-      "tableCards": roundCards.sublist(0,4),
-      "options": [roundCards.sublist(5,6),roundCards.sublist(7,8)],
-    },
-    {
-      "quesText": "Q101",
-      "options": [
-        {"opt": "X", "score": 20},
-        {"opt": "Y", "score": 10},
-        {"opt": "Z", "score": 5},
-      ]
-    },
-    {
-      "quesText": "Q102",
-      "options": [
-        {"opt": "1", "score": 20},
-        {"opt": "2", "score": 10},
-        {"opt": "3", "score": 5},
-      ]
-    },
-    {
-      "quesText": "Q103",
-      "options": [
-        {"opt": "1", "score": 20},
-        {"opt": "2", "score": 10},
-        {"opt": "3", "score": 5},
-      ]
-    },
-  ];
+    }
+    return quesList;
+
+  }
+
+  final _roundList = roundMaker(1);
 
   var _index = 0;
   var _total = 0;
@@ -82,7 +65,7 @@ class _SidAppState extends State<SidApp> {
       _index = _index + 1;
       _total = _total + score;
     });
-    print("I am Q" + _index.toString());
+    return Result(score);
   }
 
   Widget build(BuildContext context) {
@@ -102,10 +85,10 @@ class _SidAppState extends State<SidApp> {
               ),
             ),
           ),
-          body: _index <= (_quesList.length - 1)
+          body: _index <= (_roundList.length - 1)
               ? Cards(changeQ,
-                  _quesList[_index]["options"] as List<List<String>>,
-                  _quesList[_index]["tableCards"] as List<String>)
+              _roundList[_index]["options"] as List<List<String>>,
+              _roundList[_index]["tableCards"] as List<String>)
               : Result(_total)),
     );
   }
