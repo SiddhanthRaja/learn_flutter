@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
   final Function pointer;
-  final String option;
+  final List<String> option;
 
   Answer(
     this.option,
@@ -15,14 +15,28 @@ class Answer extends StatelessWidget {
         onPrimary: Colors.white,
         textStyle: TextStyle(fontSize: 125.0),
         shadowColor: Colors.pinkAccent);
-    return Container(
-      alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.only(bottom: 40.0),
-      child: ElevatedButton(
-        child: Text(option),
-        style: custom,
-        onPressed: () => pointer(),
+
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.only(bottom: 40.0),
+        child: ElevatedButton(
+          child: Text(option[0]),
+          style: custom,
+          onPressed: () => pointer(),
+        ),
       ),
-    );
+      Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.only(bottom: 40.0),
+        child: ElevatedButton(
+          child: Text(option[1]),
+          style: custom,
+          onPressed: () => pointer(),
+        ),
+      ),
+    ]);
+
+
   }
 }

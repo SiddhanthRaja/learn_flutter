@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:trotter/trotter.dart';
 
 ///
@@ -13,6 +12,7 @@ import 'package:trotter/trotter.dart';
 /// Check this for future purposes if performance is an issue
 ///
 /// But this simple one seems to be fast enough for now
+///
 class PokerHandDetector {
   static const FACES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
   static const SUITS = ['h', 'd', 'c', 's'];
