@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
   final int total;
+  final Function reset;
 
-  Result(this.total);
+  Result(this.total, this.reset);
 
   String get comment {
     var comm = "Yay, you won the game!";
@@ -18,12 +19,26 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(comment + "\n\n" + "Your score is $total",
-          style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              backgroundColor: Colors.pink)),
+    final ButtonStyle custom = ElevatedButton.styleFrom(
+        onPrimary: Colors.white,
+        textStyle: TextStyle(fontSize: 10.0),
+        shadowColor: Colors.pinkAccent);
+
+    return Column(
+      children: [
+        Center(
+          child: Text(comment + "\n\n" + "Your score is $total",
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  backgroundColor: Colors.pink)),
+        ),
+        ElevatedButton(
+          child: Text("Restart Game"),
+          style: custom,
+          onPressed: () => reset(),
+        ),
+      ],
     );
   }
 }

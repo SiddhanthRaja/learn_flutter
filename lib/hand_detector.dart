@@ -14,20 +14,42 @@ import 'package:trotter/trotter.dart';
 /// But this simple one seems to be fast enough for now
 ///
 class PokerHandDetector {
-  static const FACES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
+  static const FACES = [
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'j',
+    'q',
+    'k',
+    'a'
+  ];
   static const SUITS = ['h', 'd', 'c', 's'];
 
   /// ["ah", "3c", "2d", "js", "jd"]
   static PokerHand detectHand(List<String> hand) {
     // print("--hand--");
     // print(hand);
-    final List<String> cards = List<String>.from(hand)..retainWhere((card) => card != 'joker');
+    final List<String> cards = List<String>.from(hand)
+      ..retainWhere((card) => card != 'joker');
     int jokerCount = hand.length - cards.length;
 
-    final List<int> faces = cards.map((c) => c == null ? -1 : FACES.indexOf(c.substring(0, c.length - 1))).toList();
-    final List<int> suits = cards.map((c) => c == null ? -1 : SUITS.indexOf(c.substring(c.length - 1))).toList();
+    final List<int> faces = cards
+        .map(
+            (c) => c == null ? -1 : FACES.indexOf(c.substring(0, c.length - 1)))
+        .toList();
+    final List<int> suits = cards
+        .map((c) => c == null ? -1 : SUITS.indexOf(c.substring(c.length - 1)))
+        .toList();
 
-    if (cards.toSet().length != cards.length || faces.contains(-1) || suits.contains(-1)) {
+    if (cards.toSet().length != cards.length ||
+        faces.contains(-1) ||
+        suits.contains(-1)) {
       return PokerHand(PokerHandType.INVALID, [], []);
     }
 
@@ -77,7 +99,6 @@ class PokerHandDetector {
     return PokerHand(pokerHandType, groupsData, hand);
   }
 
-
   static List<GroupRank> _computeGroups(List<int> facesOriginal) {
     List<int> faces = List<int>.from(facesOriginal)..sort();
     List<GroupRank> groupRanks = [];
@@ -115,7 +136,8 @@ class PokerHandDetector {
     return groupsReversed;
   }
 
-  static PokerHand bestHandNoLimits(List<String> tableCards, List<String> playerCards) {
+  static PokerHand bestHandNoLimits(
+      List<String> tableCards, List<String> playerCards) {
     // print("finding best hand in $cards");
     List<String> cards = [...tableCards, ...playerCards];
     Combinations<String> combos = Combinations(5, cards);
@@ -134,7 +156,6 @@ class PokerHandDetector {
 
     return bestHand!;
   }
-
 }
 
 class PokerHand implements Comparable<PokerHand> {
@@ -202,8 +223,8 @@ class PokerHand implements Comparable<PokerHand> {
     return 0;
   }
 
-  bool get isLowestStraight => this.groupRanks[0].rank == 12 && this.groupRanks[1].rank == 3;
-
+  bool get isLowestStraight =>
+      this.groupRanks[0].rank == 12 && this.groupRanks[1].rank == 3;
 }
 
 class PokerHandType {
@@ -213,7 +234,8 @@ class PokerHandType {
   const PokerHandType(this.name, this.strength);
 
   static const PokerHandType FIVE_OF_A_KIND = PokerHandType('5 of a Kind', 100);
-  static const PokerHandType STRAIGHT_FLUSH = PokerHandType('Straight Flush', 80);
+  static const PokerHandType STRAIGHT_FLUSH =
+      PokerHandType('Straight Flush', 80);
   static const PokerHandType FOUR_OF_A_KIND = PokerHandType('4 of a Kind', 70);
   static const PokerHandType FULL_HOUSE = PokerHandType('Full House', 60);
   static const PokerHandType FLUSH = PokerHandType('Flush', 50);
